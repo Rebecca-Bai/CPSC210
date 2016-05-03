@@ -1,0 +1,50 @@
+M1
+CharAt
+Pacman pacman;
+	List<RandomMonster> randomMonsters;
+	List<TrackerMonster> trackerMonsters;
+I try to google for answer first. If I really can not find answer, I ask TA for help.
+
+M2
+I use Ctrl+F and type in tick to find it. It is easy to find because IntelliJ's search tool is very useful.
+
+M4
+The code start with "for (TrackerMonster tm : trackerMonsters)" which means for each trackermonsters, do the following: if there are still trackermonster need to move,
+do"tm.makeMove();" which excute method"makemove()" for each object tm.If no trackermonster need to move, do next.
+Next, do"for (RandomMonster rm : randomMonsters)"which means for each randommonsters, do the following: if there are still randommonster need to move,
+do"rm.makeMove();" which excute method"makemove()" for each object rm.If no trackermonster need to move, do next.
+Next, do"pacman.makeMove();" which means excute method "makemove()" for object pacman.Then, do next
+Next, end of code.
+
+
+M5
+1: For each RandomMonster that will move, also move pacman.
+Everytime all Monsters move, pacman will move twice.
+The function changes because "}" , which indicates the end of statement, is moved at end of "macman.makemove", making method "for randomMonster" include both "macman.makemove" and "rm.makeMove()".
+Each time "for randomMonster" runs,both "macman.makemove" and "rm.makeMove()" will be excuted.
+
+2:pacman = new Pacman(this); (construct from class:Pacman)
+  		randomMonsters = new LinkedList<RandomMonster>(); (construct from class: LinkedList<RandomMonster>)
+
+3:sprite.setLocation(new_x, new_y); is being called
+two parameters are called. they are: int new_x, int new_y
+
+4: 1st iteration: x=0; y=0;
+2nd iteration: x=1; y=0;
+16th iteration: x=2; y=1;
+(x+1) indicates which column "TrackerMonster s" added into "trackerMonsters"
+(y+1) indicates which row "TrackerMonster s" added into "trackerMonsters"
+
+5: if I set the breakpoint at the end of "private void initBoard()", sizes of Monsters will be shown: TrackerMonsters size=1, randomMonsters size=2.
+
+6: || means logical OR. a||b means a^b
+
+M6
+The step over technique work well for me. Different breakpoint place make program stop at different process point.
+We want to know different states of all variables in different time, so breakpoint is useful.
+
+M7
+1: this, for, get()
+2:debug, step over, find declaration
+3: how to use construct
+4: 2, 2,2,2,3,3

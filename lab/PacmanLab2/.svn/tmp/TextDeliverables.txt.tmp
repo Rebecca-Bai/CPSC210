@@ -1,0 +1,98 @@
+<<<<<<< .mine
+testIsGameOver
+Hypothesis 1: addPlayer does not correctly add the Player to its collection
+Hypothesis 2: isValidSize uses an incorrect value for the maximum or minimum team size, and is therefore unable to correctly calculate whether the size is valid
+Hypothesis 3: isValidSize does not use the current size of the collection of Players, and is therefore unable to correctly calculate whether the size is valid=======
+M3:
+
+testIsGameOver
+
+Hypothesis 1: addfood does not correctly add food to the selected location
+Hypothesis 2: the test assertFalse(b.isGameOver()) may not formed correctly.
+Hypothesis 3: the method isGameOver is not formed correctly
+
+Hypothesis 1: rejected.  I set a breakpoint at b.getGridRows().get(1).get(2).addFood() method and when I debug the JUnit tests, the program execution stops at the
+b.getGridRows().get(1).get(2).addFood() breakpoint. I used Step In to verify that the addFood() method from the gridlocation class does get called.
+The value of hasfood have been changed to true.
+
+Hypothesis 2: rejected. I I set a breakpoint at b.getGridRows().get(1).get(2).addFood() method, and I found that (2, 1) is a valid location to addfood. Then, I check the effect
+of method IsGameOver which should produce false if there are still food remain in the board. Therefore, the test assertFalse(b.isGameOver()) is correctly formed.
+
+Hypothesis 3: Accept. I set a breakpoint at "public boolean isGameOver()". When I reach the syntax "if (g.hasFood())" I found that if food exist in one location in the
+board, boolean existsFood = true. Then when the next location, which have no food, is examed, boolean existsFood was incorrectly changed back to false. I correct the method isGameOver()
+by deleting method else existsFood = false. Because the default value of existsFood = false, if no food on board, existsFood = false. All test pass after correction.
+
+
+Testmoveto
+
+Hypothesis 1: the test assertTrue(b.canMoveTo(x, y-1)) may not formed correctly.
+Hypothesis 2: The method canMoveto may not formed correctly
+Hypothesis 3:the location may not be a valid location to move to
+
+Hypothesis 1: Accept. I check the effect of method canMoveTo which return true if the given sprite can move to the proper location on the board. Also, I check
+the location (x, y-1), which is (1, 0), is a location of wall which spirte cannot move to. Therefore, the test assertTrue(b.canMoveTo(x, y-1)) is incorrrectly formed.
+I correct the test assertTrue(b.canMoveTo(x, y-1)) by changing it to assertFalse(b.canMoveTo(x, y-1)). Then, all test pass.
+
+Hypothesis 2: rejected. I check the effect of method canMoveTo which return true if the given sprite can move to the proper location on the board. Then, I check the syntaxes in
+canMoveTo. I believe all syntaxes are formed correctly to serve the effect.
+
+Hypothesis 3: accept. I I set a breakpoint at (x, y-1), and I find it is (1,0). Then, I I set a breakpoint at String BOARD_DEFN, I find (1,0) is "W". I find it's not a valid location to move on.
+I correct the test in Hypothesis one.
+
+testAddSprite
+
+Hypothesis 1:test assertTrue(food.hasFood()) may not be formed correctly
+Hypothesis 2: The method addSprite may not formed correctly
+Hypothesis 3: (1, 1) may not be a valid location to add sprite
+
+Hypothesis 1:reject. I set a breakpoint at assertTrue(food.hasFood()), and I find that method hasfood worked correctly. food.hasfood() should return true.
+
+Hypothesis 2: accept. I set a breakpoint at method addsprite in test. When I step into the addsprite method in class gridlocation, I found method consumeFood(), which
+should not be in method addSprite(RandomMonster s).(RandomMonster should not eat food) I correct the method addsprite in class gridlocation by deleting method consumeFood()
+in both addSprite(RandomMonster s) and addSprite(TrackerMonster s) methods.
+Then all test pass.
+
+Hypothesis 3: reject. I set a breakpoint at String BOARD_DEFN, I find (1,1) is "D" which should be a valid point.
+
+testmakeMove
+
+Hypothesis 1:test assertTrue(currentDistance <= (smallestDistance + 2)) may not be formed correctly
+Hypothesis 2: Method while (!b.isGameOver()) maybe incorrect
+Hypothesis 3: Method b.tickBoard() maybe incorrect
+
+Hypothesis 1: reject. I check the effect of method while (!b.isGameOver()) which suppose to make (currentDistance <= (smallestDistance + 2)), so this test
+is well formed.
+
+Hypothesis 2: I set a breakpoint at method while (!b.isGameOver()) and step into each syntax to make sure all of them are formed correctly. Method while (!b.isGameOver())
+is well formed.
+
+Hypothesis 3: I set a breakpoint at method while (!b.isGameOver()) and step into each syntax to make sure all of them are formed correctly. Then, I
+find method getHorizontalDirectionToPacman() in trackermonster class is incorrect because if (dx < 0) should return 'R', else should return 'L'. I correct
+it by changing (dx < 0) to (dx > 0). Then, all tests pass.
+
+M4
+
+1. import java.util.ArrayList;
+   import java.util.LinkedList;
+   import java.util.List;
+
+2.package ca.ubc.cpsc210.pacman.model;
+
+3.	int BOARD_WIDTH
+  	int BOARD_HEIGHT
+  	String BOARD_DEFN
+
+4.     List<List<GridLocation>> board;
+       	Pacman pacman;
+       	List<RandomMonster> randomMonsters;
+       	List<TrackerMonster> trackerMonsters;
+
+5. private method: private void initBoard()
+   public method: public int getBoardWidth()
+
+6.
+
+
+
+
+>>>>>>> .r3536

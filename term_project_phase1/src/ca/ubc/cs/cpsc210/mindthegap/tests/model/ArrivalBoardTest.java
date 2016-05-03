@@ -1,0 +1,76 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.model;
+import ca.ubc.cs.cpsc210.mindthegap.model.Arrival;
+import ca.ubc.cs.cpsc210.mindthegap.model.ArrivalBoard;
+import ca.ubc.cs.cpsc210.mindthegap.model.Line;
+import ca.ubc.cs.cpsc210.mindthegap.model.LineResourceData;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import static org.junit.Assert.*;
+/**
+ * Created by q8h0b on 21/10/2015.
+ */
+public class ArrivalBoardTest {
+
+
+    private ArrivalBoard arrivalBoard;
+    ArrivalBoard a;
+    private List<Arrival> arrivals;
+    private Line line;
+    private String travelDirn;
+    private LineResourceData lineResourceData;
+    private Arrival a1;
+    private Arrival a2;
+    private Arrival a3;
+
+    @Before
+    public void setUp(){
+        travelDirn="Westbound";
+        line=new Line(lineResourceData,"","");
+        arrivalBoard=new ArrivalBoard(line,travelDirn);
+        arrivals=new ArrayList<>();
+        a1=new Arrival(100,"","");
+        a2=new Arrival(200,"","");
+        a3=new Arrival(300,"","");
+
+
+            }
+
+    @Test
+    public void testGetLine(){
+        Line l=arrivalBoard.getLine();
+        assertEquals(l,line);
+    }
+
+    @Test
+    public void testGetNumArrivals() {
+
+        arrivalBoard.addArrival(a2);
+        arrivalBoard.addArrival(a1);
+        arrivalBoard.addArrival(a3);
+        assertEquals(3, arrivalBoard.getNumArrivals());
+        assertEquals(arrivalBoard.iterator().next(),a1);
+    }
+
+        @Test
+    public void testClearArrivals() {
+            arrivalBoard.addArrival(a3);
+        arrivalBoard.clearArrivals();
+            List <Arrival> a=new ArrayList<Arrival>();
+            assertEquals(arrivals,a);
+    }
+
+    @Test
+    public void testEquals(){
+
+        a=new ArrivalBoard(line, "Westbound");
+        assertTrue(arrivalBoard.equals(a));
+    }
+}

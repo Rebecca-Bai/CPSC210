@@ -1,0 +1,12 @@
+1: For each RandomMonster that will move, also move pacman.
+Everytime all Monsters move, pacman will move twice.
+The function changes because "}" , which indicates the end of statement, is moved at end of "macman.makemove", making method "for randomMonster" include both "macman.makemove" and "rm.makeMove()".
+Each time "for randomMonster" runs,both "macman.makemove" and "rm.makeMove()" will be excuted.
+
+2:pacman = new Pacman(this); (construct from class:Pacman)
+  		randomMonsters = new LinkedList<RandomMonster>(); (construct from class: LinkedList<RandomMonster>)
+
+3:methods: getLocation(sprite.getX(), sprite.getY()).removeSprite(sprite);
+  		getLocation(new_x, new_y).addSprite(sprite);
+  		sprite.setLocation(new_x, new_y);
+  parameters: sprite.getX(), sprite.getY()

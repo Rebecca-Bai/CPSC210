@@ -1,0 +1,67 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.model;
+
+import ca.ubc.cs.cpsc210.mindthegap.model.Line;
+import ca.ubc.cs.cpsc210.mindthegap.model.LineResourceData;
+import ca.ubc.cs.cpsc210.mindthegap.model.Station;
+import ca.ubc.cs.cpsc210.mindthegap.model.StationManager;
+import ca.ubc.cs.cpsc210.mindthegap.model.exception.StationException;
+import ca.ubc.cs.cpsc210.mindthegap.util.LatLon;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Set;
+
+import static org.junit.Assert.*;
+
+/**
+ * Unit tests for StationManager
+ */
+public class StationManagerTest {
+    private StationManager stnManager;
+    public static final int RADIUS = 10000;
+    private Set<Station> stns;
+    private Station selectedStation;
+    private Station station;
+    private LatLon latLon;
+    private Line line;
+    private LineResourceData lmd;
+    @Before
+    public void setUp() {
+        stnManager = StationManager.getInstance();
+        stnManager.clearSelectedStation();
+        stnManager.clearStations();
+        station=new Station("","",latLon);
+        line=new Line(lmd,"","");
+    }
+
+    @Test
+    public void testStationManagerConstructor() {
+        assertEquals(stnManager.getSelected(), null);
+    }
+
+    // You will need to add more tests!
+    @Test
+    public void testGetSelected() throws StationException {
+    assertEquals(null,stnManager.getSelected());
+        stnManager.setSelected(station);
+        assertEquals(station, stnManager.getSelected());
+    }
+
+    @Test
+    public  void testClearSelectedStation() throws StationException {
+        stnManager.setSelected(station);
+        stnManager.clearSelectedStation();
+        assertEquals(null, stnManager.getSelected());
+    }
+
+    @Test
+    public void testAddStationOnLine() throws StationException {
+    assertFalse(line.hasStation(station));
+        stnManager.setSelected(station);
+        stnManager.addStationsOnLine(line);
+        assertTrue(line.hasStation(stnManager.getSelected()));
+    }
+
+
+
+}

@@ -1,0 +1,31 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.parsers;
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import ca.ubc.cs.cpsc210.mindthegap.model.Branch;
+import ca.ubc.cs.cpsc210.mindthegap.parsers.BranchStringParser;
+import ca.ubc.cs.cpsc210.mindthegap.util.LatLon;
+import org.json.JSONException;
+import org.junit.Before;
+import org.junit.Test;
+/**
+ * Created by q8h0b on 28/10/2015.
+ */
+public class ParserBranchTest {
+
+    @Test
+    public void testParseBranch(){
+        BranchStringParser branchStringParser=new BranchStringParser();
+        List<LatLon> pts=branchStringParser.parseBranch("[[[0.093493,51.6037],[0.091015,51.5956],[0.088596,51.5857]]]");
+        LatLon latlon0=new LatLon(0.093493, 51.6037);
+        LatLon latlon1=new LatLon(0.091015,51.5956);
+        LatLon latlon2=new LatLon(0.088596,51.5857);
+        assertEquals(latlon0,pts.get(0));
+        assertEquals(latlon1,pts.get(1));
+        assertEquals(latlon2,pts.get(2));
+
+    }
+}

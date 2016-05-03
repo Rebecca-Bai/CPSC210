@@ -1,0 +1,26 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.model;
+import ca.ubc.cs.cpsc210.mindthegap.model.Arrival;
+import ca.ubc.cs.cpsc210.mindthegap.model.ArrivalBoard;
+import ca.ubc.cs.cpsc210.mindthegap.model.Line;
+import ca.ubc.cs.cpsc210.mindthegap.model.LineResourceData;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
+/**
+ * Created by q8h0b on 21/10/2015.
+ */
+public class ArrivalBoardTest {
+
+
+    private ArrivalBoard arrivalBoard;
+    private List<Arrival> arrivals;
+    private Line line;
+    private String travelDirn;
+
+
+
+
+}

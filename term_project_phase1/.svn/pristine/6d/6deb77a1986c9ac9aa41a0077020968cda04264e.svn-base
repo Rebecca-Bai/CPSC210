@@ -1,0 +1,19 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.parsers;
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONException;
+import org.junit.Before;
+import org.junit.Test;
+/**
+ * Created by q8h0b on 28/10/2015.
+ */
+public class ParserBranchTest {
+
+    @Test
+    public void testParseBranch(){
+
+    }
+}

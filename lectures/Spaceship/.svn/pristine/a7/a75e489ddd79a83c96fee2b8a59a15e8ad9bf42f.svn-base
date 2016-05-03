@@ -1,0 +1,21 @@
+
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+
+public class SpaceshipTest {
+
+
+	@Test
+	public void moveSpaceship() {
+		Spaceship aSpaceship = new Spaceship();
+		aSpaceship.move(0, 200);
+		assertTrue(aSpaceship.getX() == 0);
+		assertTrue(aSpaceship.getY() == 200);
+		aSpaceship.move(200, 0);
+		assertTrue(aSpaceship.getX() == 200);
+		assertTrue(aSpaceship.getY() == 200);
+	}
+
+}

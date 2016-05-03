@@ -1,0 +1,85 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.parsers;
+
+import ca.ubc.cs.cpsc210.mindthegap.TfL.DataProvider;
+import ca.ubc.cs.cpsc210.mindthegap.TfL.FileDataProvider;
+import ca.ubc.cs.cpsc210.mindthegap.model.Line;
+import ca.ubc.cs.cpsc210.mindthegap.model.LineResourceData;
+import ca.ubc.cs.cpsc210.mindthegap.parsers.TfLLineParser;
+import ca.ubc.cs.cpsc210.mindthegap.parsers.exception.TfLLineDataMissingException;
+import ca.ubc.cs.cpsc210.mindthegap.util.LatLon;
+import org.json.JSONException;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+
+/**
+ * Unit test for TfLLineParser
+ */
+public class TfLLineParserBasicTest {
+    private String lineData;
+
+    @Before
+    public void setUp() throws Exception {
+        DataProvider dataProvider = new FileDataProvider("./res/raw/central_inbound.json");
+        lineData = dataProvider.dataSourceToString();
+    }
+
+    @Test
+    public void testBasicLineParsing() {
+        try {
+            TfLLineParser.parseLine(LineResourceData.CENTRAL, lineData);
+        } catch (JSONException e) {
+            fail("JSONException should not have been thrown while parsing data in central_inbound.json");
+        } catch (TfLLineDataMissingException e) {
+            fail("TfLLineDataMissingException should not have been thrown while parsing data in central_inbound.json");
+        }
+    }
+
+    @Test
+    public void testTfLineParser() {
+        TfLLineParser tfLLineParser=new TfLLineParser();
+        FileDataProvider source = new FileDataProvider("res/raw/central_inbound.json");
+        try {
+            String centralLineData = source.dataSourceToString();
+            Line line=tfLLineParser.parseLine(LineResourceData.CENTRAL, centralLineData);
+            assertEquals("central",line.getId());
+            assertEquals("Central",line.getName());
+            assertEquals(0xFFDC241F,line.getColour());
+            LatLon latlon =new LatLon(0.093493,51.6037);
+            LatLon latlon1 =new LatLon(-0.437875,51.5697);
+            LatLon latlon2=new LatLon(51.585695,0.08859599999999999);
+
+            assertEquals(latlon, line.getBranches().iterator().next().getPoints().get(0));
+            assertEquals(latlon1, line.getBranches().iterator().next().getPoints().get(35));
+
+            String id=line.getStations().get(0).getID();
+            String name=line.getStations().get(0).getName();
+            LatLon latlon3=line.getStations().get(0).getLocn();
+
+            assertEquals(id,"940GZZLUBKE");
+            assertEquals(name,"Barkingside");
+            assertEquals(latlon3,latlon2);
+
+        } catch (IOException e) {
+            System.out.println("Unable to open source file.");
+            e.printStackTrace();
+        } catch (JSONException e) {
+            System.out.println("JSON data doesn't have expected format.");
+            e.printStackTrace();
+        } catch (TfLLineDataMissingException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    // The single test above is very basic - it simply checks that your parser
+    // doesn't throw an exception.
+}

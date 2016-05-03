@@ -1,0 +1,59 @@
+package ca.ubc.cpsc210.sustainabilityapp.model.parser;
+
+import java.util.List;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
+
+import ca.ubc.cpsc210.sustainabilityapp.model.PointOfInterest;
+
+public class MapInfoParser extends DefaultHandler {
+	
+	private List<PointOfInterest> pointsOfInterest;
+	private StringBuffer accumulator;
+
+    // Constructor
+    // EFFECTS: this parsers list of points of interest get the list passed as a parameter
+	public MapInfoParser(List<PointOfInterest> pointsOfInterest) {
+		this.pointsOfInterest = pointsOfInterest;
+	}
+
+	@Override
+	public void startDocument(){
+		accumulator = new StringBuffer();
+	}
+
+	@Override
+	public void startElement(String namespaceURI, String localName,
+							 String qName, Attributes atts) {
+
+		if (qName.toLowerCase().equals("poi")) {
+			String id= atts.getValue("Id");
+			String displayName=atts.getValue("DisplayName");
+			PointOfInterest e = new PointOfInterest(id, displayName);
+			pointsOfInterest.add(e);
+		}
+	}
+	public void characters(char[] temp, int start, int length) {
+
+		accumulator.append(temp, start, length);
+	}
+
+
+	public void endElement(String uri, String localName, String qName) {
+		String data = accumulator.toString().trim();
+		if (qName.toLowerCase().equals("Address")){
+			pointsOfInterest.get(pointsOfInterest.size() - 1).setAddress(data);
+		}
+		else if (qName.toLowerCase().equals("Lat")){
+			pointsOfInterest.get(pointsOfInterest.size() - 1).setAddress(data);
+		}
+		else if (qName.toLowerCase().equals("Long")){
+			pointsOfInterest.get(pointsOfInterest.size() - 1).setAddress(data);
+		}
+		else if (qName.toLowerCase().equals("Feature")){
+			pointsOfInterest.get(pointsOfInterest.size() - 1).setAddress(data);
+		}
+		accumulator.setLength(0);
+	}
+}

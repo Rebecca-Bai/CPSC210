@@ -1,0 +1,65 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.model;
+import ca.ubc.cs.cpsc210.mindthegap.model.Branch;
+import ca.ubc.cs.cpsc210.mindthegap.model.Line;
+import ca.ubc.cs.cpsc210.mindthegap.model.LineResourceData;
+import ca.ubc.cs.cpsc210.mindthegap.model.Station;
+import ca.ubc.cs.cpsc210.mindthegap.parsers.BranchStringParser;
+import ca.ubc.cs.cpsc210.mindthegap.util.LatLon;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.xml.ws.BindingType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import static org.junit.Assert.*;
+/**
+ * Created by Mengyu on 2015/10/26.
+ */
+public class LineTest {
+    private List<Station> stns;
+    private Set<Branch> branches;
+    private LineResourceData lmd;
+    private String id;
+    private String name;
+    private Line line;
+    private Station st;
+    private LatLon latlon;
+
+    @Before
+    public void setUp(){
+        stns=new ArrayList<>();
+        branches=new TreeSet<Branch>();
+
+    }
+
+    @Test
+    public void testGetName(){
+        line=new Line(lmd,id,"random");
+        assertEquals("random",line.getName());
+    }
+
+    @Test
+    public void testGetId(){
+        line=new Line(lmd,"randomid","random");
+        assertEquals("randomid",line.getId());
+    }
+
+    @Test
+    public void testGetColour(){
+       // lmd=new LineResourceData("central_inbound.json",0xFFDC241F);
+        line=new Line(lmd,id,"random");
+        assertEquals(0xFFDC241F,line.getColour());
+    }
+
+    @Test
+    public void testaAddStation(){
+        line=new Line(lmd,id,"random");
+        st=new Station(id,name,latlon);
+        stns=new ArrayList<>();
+        line.addStation(st);
+        assertEquals(st,stns.get(0));
+    }
+
+}

@@ -1,0 +1,81 @@
+package ca.ubc.cs.cpsc210.mindthegap.tests.model;
+import ca.ubc.cs.cpsc210.mindthegap.model.*;
+import ca.ubc.cs.cpsc210.mindthegap.parsers.BranchStringParser;
+import ca.ubc.cs.cpsc210.mindthegap.util.LatLon;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.xml.ws.BindingType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import static org.junit.Assert.*;
+/**
+ * Created by Mengyu on 2015/10/26.
+ */
+public class TestStation {
+    private List<ArrivalBoard> arrivalBoards;
+    private String id;
+    private String name;
+    private LatLon locn;
+    private Set<Line> lines;
+    private List<Arrival> arrivals;
+    private Station station;
+    private List<Station> stns;
+    private LatLon latlon;
+    private Line line;
+    private Arrival arrival;
+    private ArrivalBoard ab1;
+    private LineResourceData lmd;
+
+
+        @Before
+    public void setUp(){
+            station=new Station("940GZZLUBLG","Bethnal Green Underground Station",latlon);
+            lines=new TreeSet<>();
+            arrivals=new ArrayList<>();
+            arrival=new Arrival(5,"","");
+            arrivalBoards=new ArrayList<>();
+            ab1=new ArrivalBoard(line,"");
+            arrivalBoards.add(ab1);
+            stns =new ArrayList<>();
+            line=new Line(lmd,id,name);
+            line.addStation(station);
+        }
+
+    @Test
+    public void testGetName(){
+        assertEquals("Bethnal Green Underground Station", station.getName());
+    }
+    @Test
+    public void testGetLocn(){
+        assertEquals(latlon,station.getLocn());
+    }
+    @Test
+    public void testGetID(){
+        assertEquals("940GZZLUBLG",station.getID());
+    }
+    @Test
+    public void testGetLines(){
+        assertEquals(lines,station.getLines());
+    }
+    @Test
+    public void testNumArrivalBoards(){
+        assertEquals(0, station.getNumArrivalBoards());
+        station.addArrival(line,arrival);
+        assertEquals(1, station.getNumArrivalBoards());
+    }
+    @Test
+    public void testAddLine(){
+        Line l=new Line(lmd,"","ww");
+        station.addLine(l);
+        assertEquals(1,station.getLines().size());
+    }
+
+    @Test
+    public void testRemoveLine(){
+
+    }
+
+}

@@ -1,0 +1,19 @@
+M 2.3
+This is used to refer the current instance of the method on which it is used.
+
+M3.1
+Constructor create a instance of a class.
+
+M3.2
+The constructor is called when a new object are created, which means the object memory is allocated
+and the field variables with initial values are initialized.
+
+M7.4
+I searched toLowerCase() and contains() java by google to find out how to use them.
+
+M8
+1.toLowerCase() and contains()
+2.I improve my debug ability by using debug function on IntelliJ.
+3.I am still confuse about how to use field.
+4. 3 4 2 4 4 3 3
+

@@ -1,0 +1,42 @@
+package ca.ubc.cs.cpsc210.mindthegap.parsers;
+
+
+import ca.ubc.cs.cpsc210.mindthegap.util.LatLon;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+/**
+ * Parser for route strings in TfL line data
+ */
+public class BranchStringParser {
+
+    /**
+     * Parse a branch string obtained from TFL
+     *
+     * @param branch  branch string
+     * @return       list of lat/lon points parsed from branch string
+     */
+    public static List<LatLon> parseBranch(String branch) throws JSONException {
+        List<LatLon> empty=new ArrayList<LatLon>();
+        JSONObject branchJsonObject=new JSONObject(branch);
+        JSONArray lineStringsJSONArray=branchJsonObject.getJSONArray("lineStrings");
+        List<String> listOfListOfLatLon=new ArrayList<>();
+        for(int i = 0; i < lineStringsJSONArray.length(); i++){
+           String listOfLatLon= lineStringsJSONArray.getString(i);
+            JSONArray listOfLatLonJSONArray1 =new JSONArray(listOfLatLon);
+            JSONArray listOfLatLonJSONArray2 =new JSONArray(listOfLatLonJSONArray1);
+            for (int j = 0; j < listOfLatLonJSONArray2.length(); j++) {
+               Double d = listOfLatLonJSONArray2.getJSONArray(j);
+            }
+        }
+
+
+
+        return empty;   // stub
+    }
+}

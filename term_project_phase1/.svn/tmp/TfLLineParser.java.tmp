@@ -1,0 +1,102 @@
+package ca.ubc.cs.cpsc210.mindthegap.parsers;
+
+import ca.ubc.cs.cpsc210.mindthegap.model.*;
+import ca.ubc.cs.cpsc210.mindthegap.parsers.exception.TfLLineDataMissingException;
+import ca.ubc.cs.cpsc210.mindthegap.util.LatLon;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A parser for the data returned by TFL line route query
+ */
+public class TfLLineParser extends TfLAbstractParser {
+
+    private static Line line;
+    private static int numberOfIncompleteStop=0;
+
+    /**
+     * Parse line from JSON response produced by TfL.  No stations added to line if TfLLineDataMissingException
+     * is thrown.
+     *
+     * @param lmd              line meta-data
+     * @return                 line parsed from TfL data
+     * @throws JSONException   when JSON data does not have expected format
+     * @throws TfLLineDataMissingException when
+     * <ul>
+     *  <li> JSON data is missing lineName, lineId or stopPointSequences elements </li>
+     *  <li> for a given sequence: </li>
+     *    <ul>
+     *      <li> the stopPoint array is missing </li>
+     *      <li> all station elements are missing one of name, lat, lon or stationId elements </li>
+     *    </ul>
+     * </ul>
+     */
+    public static Line parseLine(LineResourceData lmd, String jsonResponse)
+            throws JSONException, TfLLineDataMissingException {
+        JSONObject jsonObject=new JSONObject(jsonResponse);
+        JSONArray stopPointSequences;
+        String name;
+        String id;
+        if (jsonObject.has("lineId")&&jsonObject.has("lineName")&&jsonObject.has("stopPointSequences")) {
+            id = jsonObject.getString("lineId");
+            name = jsonObject.getString("lineName");
+            stopPointSequences = jsonObject.getJSONArray("stopPointSequences");
+        }
+        else {
+            throw new TfLLineDataMissingException();
+        }
+        line =new Line(lmd, id, name);
+        JSONArray lineStrings = jsonObject.getJSONArray("lineStrings");
+            for (int i=0;i<lineStrings.length();i++){
+                String linestring =lineStrings.getString(i);
+                Branch b=new Branch(linestring);
+                line.addBranch(b);
+            }
+        for(int i = 0; i < stopPointSequences.length(); i++) {
+            parseStopPointSequences(stopPointSequences.getJSONObject(i));
+        }
+        return line;
+    }
+
+    public static void parseStopPointSequences( JSONObject StopPointSequencesJSONObject) throws TfLLineDataMissingException, JSONException {
+        JSONArray stopPoint;
+        if (StopPointSequencesJSONObject.has("stopPoint")){
+            stopPoint = StopPointSequencesJSONObject.getJSONArray("stopPoint");
+        }
+        else{
+            throw new TfLLineDataMissingException();
+        }
+        for (int i = 0; i < stopPoint.length(); i++) {
+                JSONObject stopJSONObject = stopPoint.getJSONObject(i);
+                if (stopJSONObject.has("lat")&&stopJSONObject.has("lon")&&stopJSONObject.has("stationId")&&stopJSONObject.has("name")){
+                    Double lat = stopJSONObject.getDouble("lat");
+                    Double lon = stopJSONObject.getDouble("lon");
+                    LatLon latlon = new LatLon(lat, lon);
+                    String stationId = stopJSONObject.getString("stationId");
+                    String name = TfLAbstractParser.parseName(stopJSONObject.getString("name"));
+                    Station station = new Station(stationId, name, latlon);
+                    line.addStation(station);
+                }
+                    else {numberOfIncompleteStop+=1;
+                    }
+            }
+<<<<<<< .mine
+            Double lat=stopJSONObject.getDouble("lat");
+            ]
+            Double lon=stopJSONObject.getDouble("lon");
+            LatLon latlon=new LatLon(lat,lon);
+            String stationId=stopJSONObject.getString("stationId");
+            String name=TfLAbstractParser.parseName(stopJSONObject.getString("name"));
+            Station station=new Station(stationId,name,latlon);
+            line.addStation(station);
+=======
+        if (numberOfIncompleteStop== stopPoint.length()){
+            throw new TfLLineDataMissingException();
+>>>>>>> .r13409
+        }
+        }
+}

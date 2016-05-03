@@ -1,0 +1,4 @@
+testIsGameOver
+Hypothesis 1: addPlayer does not correctly add the Player to its collection
+Hypothesis 2: isValidSize uses an incorrect value for the maximum or minimum team size, and is therefore unable to correctly calculate whether the size is valid
+Hypothesis 3: isValidSize does not use the current size of the collection of Players, and is therefore unable to correctly calculate whether the size is valid

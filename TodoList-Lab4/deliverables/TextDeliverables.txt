@@ -1,0 +1,10 @@
+M3
+1.
+I think the changes I made improved these code.
+Two subclasses scheduledtodoitem and unscheduledtodoitem extends both from todoitem, which make it easier for user to change information
+that communal for both subclasses in both subclasses at the same time.
+Also, user can change information that not communal for both subclasses in both subclasses respectively.
+It is easier for reader to understand codes as well.
+
+2.
+3 4 4 3 3 4
